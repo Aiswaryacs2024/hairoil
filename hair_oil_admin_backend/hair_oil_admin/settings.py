@@ -99,10 +99,12 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get("DATABASE_URL"),
         conn_max_age=600,  # good for persistent connections
-        ssl_require=True   # Neon requires SSL
+        ssl_require=os.environ.get("SSL_REQUIRE")   # Neon requires SSL
     )
 }
-
+# DATABASES = {
+#     'default': env.db()
+# }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
