@@ -18,7 +18,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()  # this loads your .env file
 
+import environ
+env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+ 
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -95,16 +101,18 @@ WSGI_APPLICATION = 'hair_oil_admin.wsgi.application'
 #         'PORT': '5432',                
 #     }
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,  # good for persistent connections
-        ssl_require=os.environ.get("SSL_REQUIRE")   # Neon requires SSL
-    )
-}
 # DATABASES = {
-#     'default': env.db()
+#     'default': dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL"),
+#         conn_max_age=600,  # good for persistent connections
+#         ssl_require=os.environ.get("SSL_REQUIRE")   # Neon requires SSL
+#     )
 # }
+
+DATABASES = {
+    'default': env.db()
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
